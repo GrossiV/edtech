@@ -1,44 +1,42 @@
 import '../css/style.css'
 const axios = require('axios');
 
-// TODO When handling success on insert, appende node to html
-
 function insertUser() {
   let newUserName = document.getElementById('inputUser').value
-
   if (newUserName){
     axios.post('http://localhost:3000/users',
       {
         name: newUserName
       }
     )
-    .then(function (response) {
-      console.log(response);
+    .then((response) => {
       appendNodeElement(newUserName);
       document.getElementById('inputUser').value = ""
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.error(error);
     })
   }
 }
 // Exposes the function to global scope
 window.insertUser = insertUser;
-
-
+// todo
+// Think about how to optimize this function, it should not need to call axios 2 times.
+// I could create a JSON object on window.load and have in the client-side a clone of the DB
+// That way, I could save the ID associated with the user names.
 function deleteUser(parent, child) {
-  let userListWithIndex = []
-  for (let item of parent.children){
-    if (item.tagName === 'LI'){
-      userListWithIndex.push(item)
-    }
-  }
-  axios.delete(`http://localhost:3000/users/${userListWithIndex.reverse().indexOf(child)}`)
-  .then(function (response) {
-    parent.removeChild(child.nextSibling);
-    parent.removeChild(child);
+  axios.get(`http://localhost:3000/users?name=${child.textContent}`)
+  .then((response) => {
+    axios.delete(`http://localhost:3000/users/${response.data[0].id}`)
+    .then(function (response) {
+      parent.removeChild(child.nextSibling);
+      parent.removeChild(child);
+    })
+    .catch(function (error) {
+      console.error(error);
+    })
   })
-  .catch(function (error) {
+  .catch((error) => {
     console.error(error);
   })
 }
@@ -58,12 +56,12 @@ function appendNodeElement(user) {
 
 window.onload = () => {
   axios.get('http://localhost:3000/users')
-  .then(function (response) {
+  .then((response) => {
     for (let item of response.data){
       appendNodeElement(item.name)
     }
   })
-  .catch(function (error) {
+  .catch((error) => {
     console.error(error);
   })
 }

@@ -13,3 +13,4 @@
  - First of all, run `npm install` in the back-end folder
 ### RUNNING THE SERVER
  -  in the front-end folder run `npm run server`
+ 
