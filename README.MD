@@ -5,7 +5,7 @@
 ## FRONT-END 
  - First of all, run `npm install` in the front-end folder
 ### BUILD
- -  in the front-end folder run `npm run-script build`
+ -  in the front-end folder run `npm run build`
 ### RUNNING THE SERVER
  -  in the front-end folder run `npm start`
 
@@ -13,4 +13,3 @@
  - First of all, run `npm install` in the back-end folder
 ### RUNNING THE SERVER
  -  in the front-end folder run `npm run server`
- 

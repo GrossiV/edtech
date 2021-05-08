@@ -2,10 +2,10 @@ const path = require('path');
 const CompressionPlugin = require("compression-webpack-plugin");
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-//TODO -> change mode to production
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: './src/js/script.js',
   output: {
     filename: 'main.js',
@@ -15,11 +15,12 @@ module.exports = {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },  
   plugins: [
+    new MiniCssExtractPlugin(),
     new CompressionPlugin(),
     new HtmlWebpackPlugin({
       inject: 'body',
