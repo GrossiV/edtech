@@ -16,9 +16,26 @@ function insertUser() {
 window.insertUser = insertUser;
 
 
-function deleteUser() {
-  console.log('del neles')
+function deleteUser(parent, child) {
+  let userListWithIndex = []
+  for (let item of parent.children){
+    if (item.tagName === 'LI'){
+      userListWithIndex.push(item)
+    }
+  }
+
+  axios.delete(`http://localhost:3000/users/${userListWithIndex.reverse().indexOf(child)}`)
+  .then(function (response) {
+    parent.removeChild(child.nextSibling);
+    parent.removeChild(child);
+  })
+  .catch(function (error) {
+    console.error(error);
+  })
+
+
 }
+
 
 function addItem(user) {
   let parent = document.getElementById('usersList');
@@ -29,7 +46,7 @@ function addItem(user) {
   let buttonNode = document.createElement("button");
   let buttonText = document.createTextNode('Excluir');
   buttonNode.appendChild(buttonText);
-  buttonNode.onclick = deleteUser;
+  buttonNode.onclick = () => deleteUser(parent,childNode);
   parent.appendChild(buttonNode);
 }
 
