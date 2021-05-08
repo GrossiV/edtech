@@ -23,6 +23,25 @@
 
 input, button {
   border: 1px solid black;
-  padding: 3px;
+  padding: 1px 3px;
   border-radius: 2px;
 }
+input:focus,button:focus{
+  outline: none;
+}
+
+ul {
+  margin: 20px 0 0 40px;
+}
+
+ul button {
+  margin: 2px 0;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+/* 
+button:hover {
+  hover:none;
+} */
