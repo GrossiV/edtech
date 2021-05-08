@@ -4,13 +4,23 @@ const axios = require('axios');
 // TODO When handling success on insert, appende node to html
 
 function insertUser() {
-  axios.get('http://localhost:3000/users/0')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.error(error);
-  })
+  let newUserName = document.getElementById('inputUser').value
+
+  if (newUserName){
+    axios.post('http://localhost:3000/users',
+      {
+        name: newUserName
+      }
+    )
+    .then(function (response) {
+      console.log(response);
+      appendNodeElement(newUserName);
+      document.getElementById('inputUser').value = ""
+    })
+    .catch(function (error) {
+      console.error(error);
+    })
+  }
 }
 // Exposes the function to global scope
 window.insertUser = insertUser;
@@ -23,7 +33,6 @@ function deleteUser(parent, child) {
       userListWithIndex.push(item)
     }
   }
-
   axios.delete(`http://localhost:3000/users/${userListWithIndex.reverse().indexOf(child)}`)
   .then(function (response) {
     parent.removeChild(child.nextSibling);
@@ -32,12 +41,9 @@ function deleteUser(parent, child) {
   .catch(function (error) {
     console.error(error);
   })
-
-
 }
 
-
-function addItem(user) {
+function appendNodeElement(user) {
   let parent = document.getElementById('usersList');
   let childNode = document.createElement("li");
   let childText = document.createTextNode(user);
@@ -54,7 +60,7 @@ window.onload = () => {
   axios.get('http://localhost:3000/users')
   .then(function (response) {
     for (let item of response.data){
-      addItem(item.name)
+      appendNodeElement(item.name)
     }
   })
   .catch(function (error) {
