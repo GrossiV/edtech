@@ -1,15 +1,15 @@
 # instructions:
 
-### * In order to run this project you must have npm installed in your machine. *
+### In order to run this project you must have npm installed.
 
-## FRONT-END 
- - First of all, run `npm install` in the front-end folder
+## FRONT-END (Should run inside front-end folder)
+ - Run `npm install`
 ### BUILD
- -  in the front-end folder run `npm run build`
+ - Run `npm run build`
 ### RUNNING THE SERVER
- -  in the front-end folder run `npm start`
+ - Run `npm start`
 
-## BACK-END 
- - First of all, run `npm install` in the back-end folder
+## BACK-END (Should run inside back-end folder)
+ - Run `npm install`
 ### RUNNING THE SERVER
- -  in the front-end folder run `npm run server`
+ -  Run `npm run server`
